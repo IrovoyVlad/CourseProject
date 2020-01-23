@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace auto
 {
-    class Driver
+    class Driver : IWritebleObject
     {
         private int persnumber;//Табельный номер водителя
         private string FIO;//ФИО водителя
@@ -85,7 +85,7 @@ namespace auto
         {
             return salary;
         }
-        public void Print(StreamWriter sw)
+        public void Write(SaveManager sw)
         {
             sw.WriteLine($"пресональный номер водителя: {persnumber} ");
             sw.WriteLine($" ФИО водителя: {FIO}");

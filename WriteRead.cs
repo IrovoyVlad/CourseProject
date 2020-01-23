@@ -20,7 +20,7 @@ namespace auto
         static public void Write(Voucher vouch)
         {
             StreamWriter output = new StreamWriter(path[0]+@"\vouchers\"+vouch.getNumber()+".txt");
-            vouch.Print(output);
+            vouch.Write(output);
             output.Close();
         }
         //

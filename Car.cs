@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace auto
 {
-    class Car
+    class Car:IWritebleObject
     {
         private string numbercar;//Номерной знак автомобиля
         private string carbrand;//Марка автомобиля
@@ -74,7 +74,7 @@ namespace auto
         {
             return category.value;
         }
-        public void Print(StreamWriter sw)
+        public void Write(SaveManager sw)
         {
             sw.WriteLine($"номерной знак автомобиля: {numbercar} ");         
             sw.WriteLine($"марка автомобиля автомобиля: {carbrand} ");          

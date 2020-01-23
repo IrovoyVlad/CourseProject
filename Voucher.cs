@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace auto
 {
-    class Voucher
+    class Voucher:IWritebleObject
     {
         private string number;
         private DateTime datedeparture;//Дата выезда
@@ -89,7 +89,7 @@ namespace auto
         {
             this.driver = driver;
         }
-        public void Print(StreamWriter sw)
+        public void Write(SaveManager sw)
         {
             sw.WriteLine($"Номер путевки: {number}");
             sw.WriteLine($"Дата выезда: {datedeparture.Date}");
