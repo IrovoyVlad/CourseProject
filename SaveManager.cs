@@ -23,7 +23,7 @@ namespace auto
         public SaveManager(string filename)
         {
             file = new FileInfo(filename+".txt");
-            file.CreateText();
+            file.CreateText().Close();
         }
         public void WriteLine(string line)
         {

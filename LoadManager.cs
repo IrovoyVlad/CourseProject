@@ -39,18 +39,16 @@ namespace auto
         {
             if (input != null)
                 throw new IOException("Load Error");
-
-            input = file.OpenText();
+            input = new StreamReader(file.FullName);
         }
-        public bool IsLoading
+        public bool IsLoading()
         {
-            get { return input != null && !input.EndOfStream; }
+             return input != null && !input.EndOfStream; 
         }
         public string ReadLine()
         {
             if (input == null)
                 throw new IOException("Load Error");
-
             string line = input.ReadLine();
             return line;
         }
@@ -59,7 +57,6 @@ namespace auto
         {
             if (input == null)
                 throw new IOException("Load Error");
-
             input.Close();
         }
     }
