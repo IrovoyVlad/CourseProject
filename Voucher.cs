@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace auto
 {
-    class Voucher:IWritebleObject//, IReadableObjectLoader
+    class Voucher:IWritebleObject
     {
         private string number;
         private DateTime datedeparture;//Дата выезда
@@ -106,10 +106,7 @@ namespace auto
         {
             return number;
         } 
-       /* public void Load(ILoadManager loader)
-        {
-
-        }*/
+      
 
     }
 }

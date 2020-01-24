@@ -56,7 +56,7 @@ namespace auto
             double weigth;
             Car car;
             Driver driver;
-           LoadManager sr = new LoadManager(path[0]+@"\vouchers\"+ file);
+            LoadManager sr = new LoadManager(path[0]+@"\vouchers\"+ file);
             sr.BeginRead();
             number = ParseString(sr.ReadLine());
             datedepar = ParseDate(sr.ReadLine());
@@ -86,8 +86,7 @@ namespace auto
             {
                 sr = new LoadManager( file);
                 sr.BeginRead();
-            }
-            
+            }            
             persnumber = ParseInt(sr.ReadLine());
             FIO = ParseString(sr.ReadLine());
             datebirth = ParseDate(sr.ReadLine());
@@ -115,8 +114,7 @@ namespace auto
             {
                 sr = new LoadManager( file );
                 sr.BeginRead();
-            }
-            
+            }            
             numbercar = ParseString(sr.ReadLine());
             carbrand = ParseString(sr.ReadLine());
             carmodel = ParseString(sr.ReadLine());
