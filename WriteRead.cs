@@ -19,27 +19,27 @@ namespace auto
         //
         static public void Write(Voucher vouch)
         {
-            StreamWriter output = new StreamWriter(path[0]+@"\vouchers\"+vouch.getNumber()+".txt");
+            SaveManager output = new SaveManager(path[0]+@"\vouchers\"+vouch.getNumber()+".txt");
             vouch.Write(output);
-            output.Close();
+           
         }
         //
         // функция которая принимает объект типа Car и записывет его поля в файл с именем поля numbercar этого объекта.
         //
         static public void Write( Car car)
         {
-            StreamWriter output = new StreamWriter(path[0] + @"\cars\"+car.getNumbercar()+".txt");
-            car.Print(output);
-            output.Close();
+            SaveManager output = new SaveManager(path[0] + @"\cars\"+car.getNumbercar()+".txt");
+            car.Write(output);
+       
         }
         //
         // функция которая принимает объект типа Driver и записывет его поля в файл с именем поля persnumber этого объекта.
         //
         static public void Write( Driver driver)
         {
-            StreamWriter output = new StreamWriter(path[0] + @"\drivers\"+driver.getPersnumber()+".txt");
-            driver.Print(output);
-            output.Close();
+            SaveManager output = new SaveManager(path[0] + @"\drivers\"+driver.getPersnumber()+".txt");
+            driver.Write(output);
+           
         }
         //
         //функция принимает имя файла, внутри которого содержаться поля типа Voucher, считывает их и возвращает  объект типа Voucher

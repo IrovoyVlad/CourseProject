@@ -7,9 +7,15 @@ using System.Threading.Tasks;
 
 namespace auto
 {
+    
     interface IWritebleObject
     {
         void Write(SaveManager man);
+    }
+    interface ISaveManager
+    {
+        void WriteLine(string line);
+        void WriteObject(IWritebleObject obj);
     }
     class SaveManager
     {
