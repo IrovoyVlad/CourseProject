@@ -13,33 +13,34 @@ namespace auto
         //
         //локальная пеменная в которой храниться имя папки, внутри которой содержатиься папки с файлами данных об объектах.
         //
-        private static string[] path = Directory.GetDirectories(@"D:", "data", SearchOption.AllDirectories);
+        //private static string[] path = Directory.GetDirectories(@"D:", "dataauto", SearchOption.AllDirectories);
+        private static string[] path ={ @"C:\Users\User\Desktop\программы\auto\bin\Debug\dataauto" };
         //
         // функция которая принимает объект типа Voucher и записывет его поля в файл с именем поля number этого объекта.
         //
         static public void Write(Voucher vouch)
         {
-            StreamWriter output = new StreamWriter(path[0]+@"\vouchers\"+vouch.getNumber()+".txt");
+            SaveManager output = new SaveManager(path[0]+@"\vouchers\"+vouch.getNumber());
             vouch.Write(output);
-            output.Close();
+           
         }
         //
         // функция которая принимает объект типа Car и записывет его поля в файл с именем поля numbercar этого объекта.
         //
         static public void Write( Car car)
         {
-            StreamWriter output = new StreamWriter(path[0] + @"\cars\"+car.getNumbercar()+".txt");
-            car.Print(output);
-            output.Close();
+            SaveManager output = new SaveManager(path[0] + @"\cars\"+car.getNumbercar());
+            car.Write(output);
+       
         }
         //
         // функция которая принимает объект типа Driver и записывет его поля в файл с именем поля persnumber этого объекта.
         //
         static public void Write( Driver driver)
         {
-            StreamWriter output = new StreamWriter(path[0] + @"\drivers\"+driver.getPersnumber()+".txt");
-            driver.Print(output);
-            output.Close();
+            SaveManager output = new SaveManager(path[0] + @"\drivers\"+driver.getPersnumber());
+            driver.Write(output);
+           
         }
         //
         //функция принимает имя файла, внутри которого содержаться поля типа Voucher, считывает их и возвращает  объект типа Voucher
@@ -55,7 +56,8 @@ namespace auto
             double weigth;
             Car car;
             Driver driver;
-            StreamReader sr = new StreamReader(path[0]+@"\vouchers\"+ file);
+            LoadManager sr = new LoadManager(path[0]+@"\vouchers\"+ file);
+            sr.BeginRead();
             number = ParseString(sr.ReadLine());
             datedepar = ParseDate(sr.ReadLine());
             datearriv = ParseDate(sr.ReadLine());
@@ -66,13 +68,13 @@ namespace auto
             car = ReadCar( null,sr);
             driver = ReadDriver( null,  sr);
             sr.ReadLine();
-            sr.Close();
+            sr.EndRead();
             return new Voucher(number ,datedepar, datearriv, destination, distance, consumptiontrip, weigth, car, driver);
         }
         //
         //функция принимает имя файла, внутри которого содержаться поля типа Driver, считывает их и возвращает  объект типа Driver
         //
-        static public Driver ReadDriver(string file=null,StreamReader sr=null)
+        static public Driver ReadDriver(string file=null,LoadManager sr=null)
         {
             int persnumber;
             string FIO;
@@ -82,20 +84,24 @@ namespace auto
             double salary;
             if (sr == null)
             {
-                sr = new StreamReader( file);
-            }
+                sr = new LoadManager( file);
+                sr.BeginRead();
+            }            
             persnumber = ParseInt(sr.ReadLine());
             FIO = ParseString(sr.ReadLine());
             datebirth = ParseDate(sr.ReadLine());
             experience= ParseDouble(sr.ReadLine());
             category = new Category(ParseChar(sr.ReadLine()));
             salary = ParseDouble(sr.ReadLine());
+            if(!sr.IsLoading())
+               sr.EndRead();
             return new Driver(persnumber, FIO, datebirth,experience, category, salary);
+            
         }
         //
         //функция принимает имя файла, внутри которого содержаться поля типа Car, считывает их и возвращает  объект типа Car
         //
-        static public Car ReadCar(string file = null, StreamReader sr = null)
+        static public Car ReadCar(string file = null, LoadManager sr = null)
         {
             string numbercar;
             string carbrand;
@@ -106,8 +112,9 @@ namespace auto
             Category category;
             if (sr == null)
             {
-                sr = new StreamReader( file );
-            }
+                sr = new LoadManager( file );
+                sr.BeginRead();
+            }            
             numbercar = ParseString(sr.ReadLine());
             carbrand = ParseString(sr.ReadLine());
             carmodel = ParseString(sr.ReadLine());
@@ -115,6 +122,8 @@ namespace auto
             carrying = ParseDouble(sr.ReadLine());
             consumption = ParseDouble(sr.ReadLine());
             category = new Category(ParseChar(sr.ReadLine()));
+            if (!sr.IsLoading())
+                sr.EndRead();
             return new Car(numbercar, carbrand, carmodel, run, carrying, consumption, category);
         }
         //

@@ -98,15 +98,15 @@ namespace auto
             sw.WriteLine($"Дальность следования:  {distance}");
             sw.WriteLine($"расход горючего на поездку: {consumptiontrip}");
             sw.WriteLine($"Вес груза: {weigth}");
-            car.Print(sw);
-            driver.Print(sw);
+            car.Write(sw);
+            driver.Write(sw);
             sw.WriteLine($"Стоимость путевки: {consumptiontrip * 42 + driver.getSalary()}");
         }
         public string getNumber()
         {
             return number;
         } 
-        
+      
 
     }
 }
