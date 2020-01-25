@@ -89,6 +89,10 @@ namespace auto
         {
             this.driver = driver;
         }
+        public void setNumber(string number)
+        {
+            this.number = number;
+        }
         public void Write(SaveManager sw)
         {
             sw.WriteLine($"Номер путевки: {number}");

@@ -78,6 +78,7 @@ namespace auto
             v1.setDriver(drivers[indexdriv]);
             WriteRead.Write( v1);
             Voucher v2 = WriteRead.ReadVoucher(v1.getNumber()+".txt");
+            v2.setNumber(v2.getNumber() + 1);
             WriteRead.Write(v2);
             Console.ReadKey();
         }
