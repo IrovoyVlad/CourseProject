@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace auto
 {
-    class Driver : IWritebleObject
+    class Driver : IWritebleObject, IReadbleObject
     {
         private int persnumber;//Табельный номер водителя
         private string FIO;//ФИО водителя
@@ -26,6 +26,15 @@ namespace auto
             this.experience = experience;
             this.category = category;
             this.salary = salary;
+        }
+        public Driver(ILoadManager man)
+        {
+            persnumber = int.Parse(man.ReadLine().Split(':')[1]);
+            FIO = man.ReadLine().Split(':')[1];
+            datebirth = WriteRead.ParseDate(man.ReadLine().Split(':')[1]);
+            experience = double.Parse(man.ReadLine().Split(':')[1]);
+            category = new Category(char.Parse(man.ReadLine().Split(':')[1].Trim()));
+            salary = Double.Parse(man.ReadLine().Split(':')[1]);
         }
         //
         //Конструктор без параметров который считывает поля класса
@@ -71,16 +80,7 @@ namespace auto
         public char getCategory()
         {
             return category.value;
-        }
-       /* public void setSalary(double newsalary)
-        {
-            salary = newsalary;
-        }
-        public void addExperience(double exp)
-        {
-            experience += exp;
-        }*/
-     
+        }     
         public double getSalary()
         {
             return salary;
@@ -92,10 +92,12 @@ namespace auto
             sw.WriteLine($"день,месяц и год рождения водителя(через Enter): {datebirth.ToString()}");
             sw.WriteLine($"стаж водителя: {experience}");
             sw.WriteLine($"категорию водителя: {getCategory()}");           
-            sw.WriteLine($"оклад водителя: {salary}");
-               
+            sw.WriteLine($"оклад водителя: {salary}");  
         }
-        
+        private IReadbleObject Load(ILoadManager man)
+        {
+            return new Driver(man);
+        }
     }
 }
  
