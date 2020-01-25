@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace auto
 {
-    class Voucher:IWritebleObject
+    class Voucher:IWritebleObject, IReadbleObject
     {
         private string number;
         private DateTime datedeparture;//Дата выезда
@@ -33,6 +33,18 @@ namespace auto
             this.car = car;
             this.driver = driver;
         }
+        public Voucher(ILoadManager man)
+        {
+            number = man.ReadLine().Split(':')[1];
+            datedeparture = WriteRead.ParseDate( man.ReadLine().Split(':')[1]);
+            datearrival = WriteRead.ParseDate(man.ReadLine().Split(':')[1]);
+            destination = man.ReadLine().Split(':')[1];
+            distance = double.Parse( man.ReadLine().Split(':')[1]);
+            consumptiontrip = double.Parse(man.ReadLine().Split(':')[1]);
+            weigth = double.Parse(man.ReadLine().Split(':')[1]);
+            car = new Car(man);
+            driver = new Driver(man);
+        }
         //
         //Конструктор без параметров который считывает поля класса
         //
@@ -43,7 +55,6 @@ namespace auto
             int year, day, month;
             do
             {
-                
                 Console.WriteLine("Введите день,месяц и год выезда(через Enter): ");
                 day = int.Parse(Console.ReadLine());
                 month = int.Parse(Console.ReadLine());
@@ -109,8 +120,11 @@ namespace auto
         public string getNumber()
         {
             return number;
-        } 
-      
+        }
+        private IReadbleObject Load(ILoadManager man)
+        {
+            return new Voucher(man);
+        }
 
     }
 }

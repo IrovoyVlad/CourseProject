@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace auto
 {
-    class Car:IWritebleObject
+    class Car:IWritebleObject, IReadbleObject
     {
         private string numbercar;//Номерной знак автомобиля
         private string carbrand;//Марка автомобиля
@@ -28,6 +28,16 @@ namespace auto
             this.carrying = carrying;
             this.consumption = consumption;
             this.category = category;
+        }
+        public Car(ILoadManager man)
+        {
+            numbercar = man.ReadLine().Split(':')[1];
+            carbrand = man.ReadLine().Split(':')[1];
+            carmoadel = man.ReadLine().Split(':')[1];
+            run = Double.Parse(man.ReadLine().Split(':')[1]);
+            carrying =double.Parse(man.ReadLine().Split(':')[1]);
+            consumption = double.Parse(man.ReadLine().Split(':')[1]);
+            category = new Category(char.Parse(man.ReadLine().Split(':')[1].Trim()));
         }
         //
         //Конструктор без параметров который считывает поля класса
@@ -65,11 +75,7 @@ namespace auto
         {
             return numbercar;
         }
-        /*public void addRun(double run)
-        {
-            this.run += run;
-        }*/
-     
+
         public char getCategory()
         {
             return category.value;
@@ -84,6 +90,10 @@ namespace auto
             sw.WriteLine($" расход топлива на 100 км автомобиля: {consumption} ");
             sw.WriteLine($" категория автомобиля:  {getCategory()}");
         }
-        
+        private IReadbleObject Load(ILoadManager man)
+        {
+            return new Car(man);
+        }
+
     }
 }

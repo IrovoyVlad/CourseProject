@@ -13,8 +13,9 @@ namespace auto
         //
         //локальная пеменная в которой храниться имя папки, внутри которой содержатиься папки с файлами данных об объектах.
         //
-        //private static string[] path = Directory.GetDirectories(@"C:", "dataauto", SearchOption.AllDirectories);
-        private static string[] path ={ @"C:\Users\User\Desktop\программы\CourseProject\bin\Debug\dataauto" };
+       // private static string[] path = Directory.GetDirectories(@"C:", "dataauto", SearchOption.AllDirectories);
+      //  private static string[] path ={ @"C:\Users\User\Desktop\программы\CourseProject\bin\Debug\dataauto" };
+        private static string[] path = { @"C:\Users\Компьютер\Desktop\покс-31\CourseProject\bin\Debug\dataauto" };
         //
         // функция которая принимает объект типа Voucher и записывет его поля в файл с именем поля number этого объекта.
         //
@@ -47,6 +48,7 @@ namespace auto
         //
         static public Voucher ReadVoucher(string file)
         {
+            /*
             string number;
             DateTime datedepar;
             DateTime datearriv;
@@ -69,14 +71,19 @@ namespace auto
             driver = ReadDriver( null,  sr);
             sr.ReadLine();
             sr.EndRead();
-            return new Voucher(number ,datedepar, datearriv, destination, distance, consumptiontrip, weigth, car, driver);
+            return new Voucher(number ,datedepar, datearriv, destination, distance, consumptiontrip, weigth, car, driver);*/
+            LoadManager sr = new LoadManager(path[0] + @"\vouchers\" + file);
+            sr.BeginRead();
+            Voucher s= new Voucher(sr);
+            sr.BeginRead();
+            return s;
         }
         //
         //функция принимает имя файла, внутри которого содержаться поля типа Driver, считывает их и возвращает  объект типа Driver
         //
-        static public Driver ReadDriver(string file=null,LoadManager sr=null)
+        static public Driver ReadDriver(string file)
         {
-            int persnumber;
+            /*int persnumber;
             string FIO;
             DateTime datebirth;
             double experience;
@@ -95,36 +102,45 @@ namespace auto
             salary = ParseDouble(sr.ReadLine());
             if(!sr.IsLoading())
                sr.EndRead();
-            return new Driver(persnumber, FIO, datebirth,experience, category, salary);
-            
+            return new Driver(persnumber, FIO, datebirth,experience, category, salary);*/
+            LoadManager sr = new LoadManager(path[0] + @"\drivers\" + file);
+            sr.BeginRead();
+            Driver s = new Driver(sr);
+            sr.BeginRead();
+            return s;
         }
         //
         //функция принимает имя файла, внутри которого содержаться поля типа Car, считывает их и возвращает  объект типа Car
         //
-        static public Car ReadCar(string file = null, LoadManager sr = null)
+        static public Car ReadCar(string file )
         {
-            string numbercar;
-            string carbrand;
-            string carmodel;
-            double run;
-            double carrying;
-            double consumption;
-            Category category;
-            if (sr == null)
-            {
-                sr = new LoadManager( file );
-                sr.BeginRead();
-            }            
-            numbercar = ParseString(sr.ReadLine());
-            carbrand = ParseString(sr.ReadLine());
-            carmodel = ParseString(sr.ReadLine());
-            run = ParseDouble(sr.ReadLine());
-            carrying = ParseDouble(sr.ReadLine());
-            consumption = ParseDouble(sr.ReadLine());
-            category = new Category(ParseChar(sr.ReadLine()));
-            if (!sr.IsLoading())
-                sr.EndRead();
-            return new Car(numbercar, carbrand, carmodel, run, carrying, consumption, category);
+            /* string numbercar;
+             string carbrand;
+             string carmodel;
+             double run;
+             double carrying;
+             double consumption;
+             Category category;
+             if (sr == null)
+             {
+                 sr = new LoadManager( file );
+                 sr.BeginRead();
+             }            
+             numbercar = ParseString(sr.ReadLine());
+             carbrand = ParseString(sr.ReadLine());
+             carmodel = ParseString(sr.ReadLine());
+             run = ParseDouble(sr.ReadLine());
+             carrying = ParseDouble(sr.ReadLine());
+             consumption = ParseDouble(sr.ReadLine());
+             category = new Category(ParseChar(sr.ReadLine()));
+             if (!sr.IsLoading())
+                 sr.EndRead();
+             return new Car(numbercar, carbrand, carmodel, run, carrying, consumption, category);*/
+            LoadManager sr = new LoadManager(path[0] + @"\cars\" + file);
+            sr.BeginRead();
+            Car s = new Car(sr);
+            sr.BeginRead();
+            return s;
         }
         //
         //функция считывает из файлов объекты типа Car в массив и возвращает его
@@ -193,7 +209,7 @@ namespace auto
         //
         //функция принимает строку,выделяет из неё значимую часть, преобразует ее в объект типа DataTime и возвращает преобразованное значение
         //
-        private static DateTime ParseDate(string date)
+       public static DateTime ParseDate(string date)
         {
             date = date.Remove(0, date.IndexOf(':') + 1);
             date = date.Remove(date.LastIndexOf(' '), 8);
