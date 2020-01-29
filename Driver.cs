@@ -94,9 +94,13 @@ namespace auto
             sw.WriteLine($"категорию водителя: {getCategory()}");           
             sw.WriteLine($"оклад водителя: {salary}");  
         }
-        private IReadbleObject Load(ILoadManager man)
+        public class Loader : IReadableObjectLoader
         {
-            return new Driver(man);
+            public Loader() { }
+            public IReadbleObject Load(ILoadManager man)
+            {
+                return new Driver(man);
+            }
         }
     }
 }

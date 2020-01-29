@@ -13,9 +13,9 @@ namespace auto
         //
         //локальная пеменная в которой храниться имя папки, внутри которой содержатиься папки с файлами данных об объектах.
         //
-       // private static string[] path = Directory.GetDirectories(@"C:", "dataauto", SearchOption.AllDirectories);
+        private static string[] path = Directory.GetDirectories(@"C:", "dataauto", SearchOption.AllDirectories);
       //  private static string[] path ={ @"C:\Users\User\Desktop\программы\CourseProject\bin\Debug\dataauto" };
-        private static string[] path = { @"C:\Users\Компьютер\Desktop\покс-31\CourseProject\bin\Debug\dataauto" };
+       // private static string[] path = { @"C:\Users\Компьютер\Desktop\покс-31\CourseProject\bin\Debug\dataauto" };
         //
         // функция которая принимает объект типа Voucher и записывет его поля в файл с именем поля number этого объекта.
         //
