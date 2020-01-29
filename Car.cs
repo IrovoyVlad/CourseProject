@@ -90,10 +90,14 @@ namespace auto
             sw.WriteLine($" расход топлива на 100 км автомобиля: {consumption} ");
             sw.WriteLine($" категория автомобиля:  {getCategory()}");
         }
-        private IReadbleObject Load(ILoadManager man)
-        {
-            return new Car(man);
-        }
 
+        public class Loader : IReadableObjectLoader
+        {
+            public Loader() { }
+            public IReadbleObject Load(ILoadManager man)
+            {
+                return new Car(man);
+            }
+        }
     }
 }

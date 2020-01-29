@@ -121,9 +121,13 @@ namespace auto
         {
             return number;
         }
-        private IReadbleObject Load(ILoadManager man)
+        public class Loader : IReadableObjectLoader
         {
-            return new Voucher(man);
+            public Loader() { }
+            public IReadbleObject Load(ILoadManager man)
+            {
+                return new Voucher(man);
+            }
         }
 
     }
