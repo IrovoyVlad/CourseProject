@@ -22,11 +22,11 @@ namespace auto
     }
     class LoadManager : ILoadManager
     {
-        FileInfo file;
+        string file;
         StreamReader input;
         public LoadManager(string filename)
         {
-            file = new FileInfo(filename);
+            file = filename;
             input = null;
         }
 
@@ -39,7 +39,7 @@ namespace auto
         {
             if (input != null)
                 throw new IOException("Load Error");
-            input = new StreamReader(file.FullName);
+           input = new StreamReader(file);
         }
         public bool IsLoading()
         {

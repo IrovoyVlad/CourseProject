@@ -31,7 +31,7 @@ namespace auto
         }
         public Car(ILoadManager man)
         {
-            numbercar = man.ReadLine().Split(':')[1];
+            numbercar = man.ReadLine().Split(':')[1].Trim();
             carbrand = man.ReadLine().Split(':')[1];
             carmoadel = man.ReadLine().Split(':')[1];
             run = Double.Parse(man.ReadLine().Split(':')[1]);

@@ -13,9 +13,8 @@ namespace auto
         //
         //локальная пеменная в которой храниться имя папки, внутри которой содержатиься папки с файлами данных об объектах.
         //
-        private static string[] path = Directory.GetDirectories(@"C:", "dataauto", SearchOption.AllDirectories);
-      //  private static string[] path ={ @"C:\Users\User\Desktop\программы\CourseProject\bin\Debug\dataauto" };
-       // private static string[] path = { @"C:\Users\Компьютер\Desktop\покс-31\CourseProject\bin\Debug\dataauto" };
+        // private static string[] path = Directory.GetDirectories(@"C:", "dataauto", SearchOption.AllDirectories);
+        private static string[] path = { @"C:\Users\Student\Desktop\покс-31\CourseProject\bin\Debug\dataauto" };
         //
         // функция которая принимает объект типа Voucher и записывет его поля в файл с именем поля number этого объекта.
         //
@@ -48,34 +47,11 @@ namespace auto
         //
         static public Voucher ReadVoucher(string file)
         {
-            /*
-            string number;
-            DateTime datedepar;
-            DateTime datearriv;
-            string destination;
-            double distance;
-            double consumptiontrip;
-            double weigth;
-            Car car;
-            Driver driver;
-            LoadManager sr = new LoadManager(path[0]+@"\vouchers\"+ file);
-            sr.BeginRead();
-            number = ParseString(sr.ReadLine());
-            datedepar = ParseDate(sr.ReadLine());
-            datearriv = ParseDate(sr.ReadLine());
-            destination = ParseString(sr.ReadLine());
-            distance = ParseDouble(sr.ReadLine());
-            consumptiontrip = ParseDouble(sr.ReadLine());
-            weigth = ParseDouble(sr.ReadLine());
-            car = ReadCar( null,sr);
-            driver = ReadDriver( null,  sr);
-            sr.ReadLine();
-            sr.EndRead();
-            return new Voucher(number ,datedepar, datearriv, destination, distance, consumptiontrip, weigth, car, driver);*/
+            
             LoadManager sr = new LoadManager(path[0] + @"\vouchers\" + file);
             sr.BeginRead();
             Voucher s= new Voucher(sr);
-            sr.BeginRead();
+            sr.EndRead();
             return s;
         }
         //
@@ -83,30 +59,11 @@ namespace auto
         //
         static public Driver ReadDriver(string file)
         {
-            /*int persnumber;
-            string FIO;
-            DateTime datebirth;
-            double experience;
-            Category category;
-            double salary;
-            if (sr == null)
-            {
-                sr = new LoadManager( file);
-                sr.BeginRead();
-            }            
-            persnumber = ParseInt(sr.ReadLine());
-            FIO = ParseString(sr.ReadLine());
-            datebirth = ParseDate(sr.ReadLine());
-            experience= ParseDouble(sr.ReadLine());
-            category = new Category(ParseChar(sr.ReadLine()));
-            salary = ParseDouble(sr.ReadLine());
-            if(!sr.IsLoading())
-               sr.EndRead();
-            return new Driver(persnumber, FIO, datebirth,experience, category, salary);*/
-            LoadManager sr = new LoadManager(path[0] + @"\drivers\" + file);
+           
+            LoadManager sr = new LoadManager(/*path[0] + @"\drivers\"*/  file);
             sr.BeginRead();
             Driver s = new Driver(sr);
-            sr.BeginRead();
+            sr.EndRead();
             return s;
         }
         //
@@ -114,32 +71,10 @@ namespace auto
         //
         static public Car ReadCar(string file )
         {
-            /* string numbercar;
-             string carbrand;
-             string carmodel;
-             double run;
-             double carrying;
-             double consumption;
-             Category category;
-             if (sr == null)
-             {
-                 sr = new LoadManager( file );
-                 sr.BeginRead();
-             }            
-             numbercar = ParseString(sr.ReadLine());
-             carbrand = ParseString(sr.ReadLine());
-             carmodel = ParseString(sr.ReadLine());
-             run = ParseDouble(sr.ReadLine());
-             carrying = ParseDouble(sr.ReadLine());
-             consumption = ParseDouble(sr.ReadLine());
-             category = new Category(ParseChar(sr.ReadLine()));
-             if (!sr.IsLoading())
-                 sr.EndRead();
-             return new Car(numbercar, carbrand, carmodel, run, carrying, consumption, category);*/
-            LoadManager sr = new LoadManager(path[0] + @"\cars\" + file);
+            LoadManager sr = new LoadManager(/*path[0] + @"\cars\"*/  file );
             sr.BeginRead();
             Car s = new Car(sr);
-            sr.BeginRead();
+            sr.EndRead();
             return s;
         }
         //
@@ -211,8 +146,9 @@ namespace auto
         //
        public static DateTime ParseDate(string date)
         {
-            date = date.Remove(0, date.IndexOf(':') + 1);
-            date = date.Remove(date.LastIndexOf(' '), 8);
+            date = date.Remove(0, date.IndexOf(':') + 2);
+            date = date.Remove(date.IndexOf(' '), 2);
+            Console.WriteLine(date);
             string[] dat = date.Split('.');
             return new DateTime(int.Parse(dat[2]),int.Parse( dat[1]),int.Parse (dat[0]));
         }

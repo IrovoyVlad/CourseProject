@@ -25,15 +25,13 @@ namespace auto
             }
                
          
-            try
-            {
+           
                 olddriver = WriteRead.ReadAllDrivers();
                 for (int i = drivers.Length - WriteRead.getcountDriv(), b = 0; i < drivers.Length; i++, b++)
                 {
                     drivers[i] = olddriver[b];
                 }
-            }
-            catch  { }
+           
             Console.WriteLine("Введите количество новых машин на вашем предприятии: ");
             count = int.Parse(Console.ReadLine());
             Car[] cars = new Car[count+WriteRead.getcountCar()];
@@ -41,25 +39,25 @@ namespace auto
             for (int i = 0; i < count; i++)
             {
                 cars[i] = new Car();
-                WriteRead.Write(cars[i]);
             }
                  
            
-            try
+            //try
             {
                 oldcar = WriteRead.ReadAllCars();
-                for (int i = cars.Length - WriteRead.getcountCar(), b = 0; i < drivers.Length; i++, b++)
+                for (int i = cars.Length - WriteRead.getcountCar(), b = 0; i < drivers.Length-2; i++, b++)
                 {
                     cars[i] = oldcar[b];
+                    WriteRead.Write(cars[i]);
                 }
             }
-            catch { }
+            //catch { }
             Voucher v1=new Voucher();
             int  indexcar = 0;
             int indexdriv = 0;
             for (int i = 0; i < cars.Length; i++)
             {                
-                    if (cars[i].getCategory() == Category.isCategory(v1.getWeigth()))
+                   if (cars[i].getCategory() == Category.isCategory(v1.getWeigth()))
 
                     {
                         for (int j = 0; j < drivers.Length; j++)
