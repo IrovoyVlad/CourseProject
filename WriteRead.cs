@@ -13,11 +13,12 @@ namespace auto
         //
         //локальная пеменная в которой храниться имя папки, внутри которой содержатиься папки с файлами данных об объектах.
         //
-        // private static string[] path = Directory.GetDirectories(@"C:", "dataauto", SearchOption.AllDirectories);
-        private static string[] path = { @"C:\Users\Student\Desktop\покс-31\CourseProject\bin\Debug\dataauto" };
+         private static string[] path = Directory.GetDirectories(@"C:", "dataauto", SearchOption.AllDirectories);
+        //private static string[] path = { @"C:\Users\Student\Desktop\покс-31\CourseProject\bin\Debug\dataauto" };
         //
         // функция которая принимает объект типа Voucher и записывет его поля в файл с именем поля number этого объекта.
         //
+        static DatedLogger datlog = new DatedLogger(Console.Out);
         static public void Write(Voucher vouch)
         {
             SaveManager output = new SaveManager(path[0]+@"\vouchers\"+vouch.getNumber());
@@ -49,6 +50,7 @@ namespace auto
         {
             
             LoadManager sr = new LoadManager(path[0] + @"\vouchers\" + file);
+            LoadLogger loadLog1 = new LoadLogger(sr, datlog);
             sr.BeginRead();
             Voucher s= new Voucher(sr);
             sr.EndRead();
@@ -61,6 +63,7 @@ namespace auto
         {
            
             LoadManager sr = new LoadManager(/*path[0] + @"\drivers\"*/  file);
+            LoadLogger loadLog1 = new LoadLogger(sr, datlog);
             sr.BeginRead();
             Driver s = new Driver(sr);
             sr.EndRead();
@@ -72,6 +75,7 @@ namespace auto
         static public Car ReadCar(string file )
         {
             LoadManager sr = new LoadManager(/*path[0] + @"\cars\"*/  file );
+            LoadLogger loadLog1 = new LoadLogger(sr, datlog);
             sr.BeginRead();
             Car s = new Car(sr);
             sr.EndRead();

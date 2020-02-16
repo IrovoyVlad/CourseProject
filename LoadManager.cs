@@ -24,6 +24,9 @@ namespace auto
     {
         string file;
         StreamReader input;
+        public event EventHandler<IReadbleObject> ObjectDidLoad;
+        public event EventHandler<string> DidStartLoad;
+        public event EventHandler<string> DidEndLoad;
         public LoadManager(string filename)
         {
             file = filename;
@@ -32,23 +35,29 @@ namespace auto
 
         public IReadbleObject Read(IReadableObjectLoader loader)
         {
-            return loader.Load(this);
+            var result = loader.Load(this);
+            if (ObjectDidLoad != null)
+                ObjectDidLoad.Invoke(this, result);
+            return result;
         }
 
         public void BeginRead()
         {
             if (input != null)
                 throw new IOException("Load Error");
-           input = new StreamReader(file);
+            if (DidStartLoad != null)
+                DidStartLoad.Invoke(this, file);
+            input = new StreamReader(file);
         }
-        public bool IsLoading()
+        public bool IsLoading
         {
-             return input != null && !input.EndOfStream; 
+            get { return input != null && !input.EndOfStream; }
         }
         public string ReadLine()
         {
             if (input == null)
                 throw new IOException("Load Error");
+
             string line = input.ReadLine();
             return line;
         }
@@ -57,7 +66,11 @@ namespace auto
         {
             if (input == null)
                 throw new IOException("Load Error");
+            if (DidEndLoad != null)
+                DidEndLoad.Invoke(this, file);
+
             input.Close();
         }
     }
+
 }
