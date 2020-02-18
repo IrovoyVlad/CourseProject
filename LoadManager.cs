@@ -48,6 +48,7 @@ namespace auto
             if (DidStartLoad != null)
                 DidStartLoad.Invoke(this, file);
             input = new StreamReader(file);
+            //ObjectDidLoad.Invoke(this,Read());
         }
         public bool IsLoading
         {
@@ -64,6 +65,7 @@ namespace auto
 
         public void EndRead()
         {
+           
             if (input == null)
                 throw new IOException("Load Error");
             if (DidEndLoad != null)

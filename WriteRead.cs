@@ -13,7 +13,7 @@ namespace auto
         //
         //локальная пеменная в которой храниться имя папки, внутри которой содержатиься папки с файлами данных об объектах.
         //
-         private static string[] path = Directory.GetDirectories(@"C:", "dataauto", SearchOption.AllDirectories);
+         private static string[] path = Directory.GetDirectories(@"D:", "dataauto", SearchOption.AllDirectories);
         //private static string[] path = { @"C:\Users\Student\Desktop\покс-31\CourseProject\bin\Debug\dataauto" };
         //
         // функция которая принимает объект типа Voucher и записывет его поля в файл с именем поля number этого объекта.
@@ -65,7 +65,7 @@ namespace auto
             LoadManager sr = new LoadManager(/*path[0] + @"\drivers\"*/  file);
             LoadLogger loadLog1 = new LoadLogger(sr, datlog);
             sr.BeginRead();
-            Driver s = new Driver(sr);
+            Driver s = sr.Read(new Driver.Loader()) as Driver;
             sr.EndRead();
             return s;
         }
